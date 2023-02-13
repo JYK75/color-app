@@ -1,8 +1,14 @@
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { inpurtColor, RootState } from '../redux/store';
 import styles from './RandomColor.module.css';
 
 const RandomColor = () => {
-  
+  const targetColorState = useSelector((state: RootState) => state.targetColor);
+
+  const dispatch = useDispatch();
+
   const createColors = () => {
     let colorArr = [];
     for(let i = 0; i < 32; i++) {
@@ -21,14 +27,16 @@ const RandomColor = () => {
 
   return (
     <>
-      <h1 className={styles.title}>Color Palette</h1>
       <ul className={styles.container}>
         {
           colors.map((value, index) => (
-            <li className={styles.color} key={`${index}_${index}`}>
-              <div className={styles.color_box} style={{background: `${value}`}}></div>
-              <span className={styles.color_value}>{value}</span>
-            </li>
+            <Link to={`/color`} style={{ textDecoration: "none" }} key={`${index}_${index}`} 
+            onClick={() => dispatch(inpurtColor(value))}>
+              <li className={styles.color}>
+                <div className={styles.color_box} style={{background: `${value}`}}></div>
+                <span className={styles.color_value}>{value}</span>
+              </li>
+            </Link>
           ))
         }
       </ul>

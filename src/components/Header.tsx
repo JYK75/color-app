@@ -1,32 +1,48 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
-import Values from 'values.js';
+import { inpurtColor} from '../redux/store';
+
+import { Link, useNavigate } from "react-router-dom";
+
 
 import styles from './Header.module.css';
 
 const Header = () => {
-  const [color, setColor] = useState('');
+  const dispatch = useDispatch();
+
+  const [inputValue, setInputValue] = useState('')
   const [error, setError] = useState(false);
-  const [list, setList] = useState([]);
+
+  const navigate = useNavigate();
 
   const handleSubmit = (e:React.FormEvent) => {
     e.preventDefault();
-    let colors = new Values(color).all(10)
+    try {
+      dispatch(inpurtColor(inputValue));
+      setError(false);
+      navigate(`/color`)
+    } catch (error) {
+      setError(true);
+      console.log(error);
+    }
   }
-
+  
   return (
-    <div>
+    <>
       <div className={styles.container}>
-        <h1 className={styles.title}>Color Palette</h1>
-        <form onSubmit={handleSubmit}>
-          <input type="text" value={color} onChange={(e) => setColor(e.target.value)}
-          placeholder='#000000' />
+        <Link to='/'>
+          <h1 className={styles.title}>Color Palette</h1>
+        </Link>
+        <form onSubmit={handleSubmit} className={styles.form_ctn}>
+          <input type="text" value={inputValue} onChange={(e) => setInputValue(e.target.value)}
+          placeholder='#000000' className={`${error ? styles.error : ''}`} />
           <button className={styles.input_btn} type='submit'>
             submit
           </button>
         </form>
       </div>
-    </div>
+    </>
   )
 }
 
