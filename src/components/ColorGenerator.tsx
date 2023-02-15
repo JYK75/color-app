@@ -4,9 +4,9 @@ import { useEffect, useState } from 'react'
 import { ColorType } from '../redux/type'
 import rgbToHex from '../calc'
 
-import { useDispatch, useSelector } from 'react-redux'
+import {  useSelector } from 'react-redux'
 import { RootState } from '../redux/store'
-import { Link, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Values from 'values.js';
 
 const ColorGenerator = () => {

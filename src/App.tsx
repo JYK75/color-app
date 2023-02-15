@@ -1,5 +1,4 @@
 
-import { useEffect } from 'react'
 import { useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import './App.css'
@@ -10,7 +9,6 @@ import { RootState } from './redux/store';
 
 
 function App() {
-  const targetColorState = useSelector((state: RootState) => state.targetColor);
 
   return (
     <div className="App">
