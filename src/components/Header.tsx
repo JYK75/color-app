@@ -5,20 +5,21 @@ import { inpurtColor} from '../redux/store';
 
 import { Link, useNavigate } from "react-router-dom";
 
+import Values from 'values.js';
 
 import styles from './Header.module.css';
 
 const Header = () => {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
+ 
   const [inputValue, setInputValue] = useState('')
   const [error, setError] = useState(false);
-
-  const navigate = useNavigate();
 
   const handleSubmit = (e:React.FormEvent) => {
     e.preventDefault();
     try {
+      let colors = new Values(inputValue).all(10);
       dispatch(inpurtColor(inputValue));
       setError(false);
       navigate(`/color`)
